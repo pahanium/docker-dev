@@ -1,0 +1,21 @@
+#override defaults for dev
+version: "3"
+
+services:
+  web:
+    # ports:
+    #   - "${APACHE_PORT}:80"
+    #   - "8082:80"
+
+  database:
+    ports:
+      - "1306:3306"
+
+  adminer:
+    ports:
+      - "8085:8080"
+
+  mailhog:
+    ports:
+      - "1025:1025" # smtp server
+      - "8025:8025" # web ui

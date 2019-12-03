@@ -1,0 +1,5 @@
+/data/*
+!data/mysql/.gitkeep
+
+/database_server/docker-entrypoint-initdb.d/
+!/database_server/docker-entrypoint-initdb.d/*.sh

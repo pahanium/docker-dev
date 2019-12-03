@@ -1,0 +1,45 @@
+version: '3'
+services:
+  web:
+    image: "thecodingmachine/php:${IMAGE_TAG}"
+    volumes:
+      - ../:/var/www/html
+      - ./web/startup.sh:/etc/container/startup.sh
+    ports:
+      - "${APACHE_PORT}:80"
+    links:
+      - database:database_server
+      - mailhog:mail.server
+      #- redis:redis_server
+    env_file:
+      - ./.env
+    environment:
+      PHP_EXTENSION_XDEBUG: 1
+      PHP_EXTENSION_GD: 1
+      PHP_EXTENSION_FREETYPE: 1
+      PHP_INI_MAX_EXECUTION_TIME: -1
+      PHP_INI_MEMORY_LIMIT: 256M
+      PHP_INI_UPLOAD_MAX_FILESIZE: 20M
+
+  database:
+    image: "mysql:${MYSQL_TAG}"
+    #image: mysql:8
+    user: "${UID_U}:${GID_U}"
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+      - ./database/initdb.d:/docker-entrypoint-initdb.d
+    env_file:
+      - ./.env
+
+  adminer:
+    image: adminer
+    environment:
+      ADMINER_DEFAULT_SERVER: database
+
+  mailhog:
+    image: mailhog/mailhog
+
+#  redis:
+#    image: redis:4
+#    volumes:
+#      - ./data/redis:/data:Z
