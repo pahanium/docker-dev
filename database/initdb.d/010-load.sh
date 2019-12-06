@@ -4,7 +4,7 @@ set -e
 if [ -e /docker-entrypoint-initdb.d/dump.sql ]; then
     echo "Import existing dump.sql"
 else
-    if [[ -z "${MYSQL_REMOTE_DATABASE}" ]]; then
+    if [[ ! -z "${MYSQL_REMOTE_DATABASE}" ]]; then
         echo "Dump database"
         mysqldump -h${MYSQL_REMOTE_HOST} -u ${MYSQL_REMOTE_USER} --password=${MYSQL_REMOTE_PASSWORD} ${MYSQL_REMOTE_DATABASE} >/docker-entrypoint-initdb.d/dump.sql
 
