@@ -10,6 +10,9 @@ cd project
 git clone https://github.com/pahanium/docker-dev.git
 ```
 
+## Config ##
+cp .env.example .env && edit .env file
+
 ## Start ##
 ```
 cd docker-dev
